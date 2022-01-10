@@ -1,6 +1,20 @@
-const express = require("express");
+//önce npmden indirdiğim paketleri dahil ediyorum.
+const express = require('express');
+const mongoose = require('mongoose')
+const pageRoute = require('./routes/pageRoute');
+
 
 const app = express();
+
+//Connect DB
+await mongoose.connect('mongodb://localhost/eduproject-db', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}).then(() => {
+    console.log('db connect Success');
+});
 
 const port = 3000;
 
@@ -10,17 +24,8 @@ app.set("view engine","ejs")
 //middlewares
 app.use(express.static('public'))
 
-app.get("/", (req, res) => {
-  res.render("index", {
-    page_name: "index"
-  })
-});
+app.use("/", pageRoute);
 
-app.get("/about", (req, res) => {
-  res.render("about", {
-    page_name: "about"
-  })
-});
 
 app.listen(port, () => {
   console.log("sunucu çalışıyor");
