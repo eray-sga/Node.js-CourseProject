@@ -1,3 +1,5 @@
+const nodemailer = require("nodemailer");
+
 exports.getIndexPage = (req, res) => {
     res.render("index", {
       page_name: "index",
@@ -21,3 +23,10 @@ exports.getLoginPage = (req, res) => {
     page_name: "login",
   });
 };
+
+exports.getContactPage = (req, res) => {
+  res.render("contact", {
+    page_name: "contact",
+  });
+};
+

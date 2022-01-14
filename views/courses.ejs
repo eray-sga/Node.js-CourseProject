@@ -13,7 +13,14 @@
 <div id="overviews" class="section wb">
   <div class="container">
     <div class="row">
+      
       <div class="col-lg-9 blog-post-single">
+        <% if (flashMessages) { %> <%if (flashMessages.success) { %>
+          <div class="alert alert-success"><%= flashMessages.success %></div>
+    
+          <% } else if (flashMessages.error) { %>
+          <div class="alert alert-danger"><%= flashMessages.error %></div>
+          <% } %> <% } %>
         <div class="row">
           <% for (let i=0; i < courses.length; i++) { %>
 
@@ -24,7 +31,11 @@
               </div>
               <div class="course-br">
                 <div class="course-title">
-                  <h2><a href="/courses/<%= courses[i].slug %> " title=""><%= courses[i].name %> </a></h2>
+                  <h2>
+                    <a href="/courses/<%= courses[i].slug %> " title=""
+                      ><%= courses[i].name %>
+                    </a>
+                  </h2>
                 </div>
                 <div class="course-desc">
                   <p><%= courses[i].description.substring(0,100) + '...' %></p>
@@ -33,7 +44,8 @@
               <div class="course-meta-bot">
                 <ul>
                   <li>
-                    <i class="fa fa-user" aria-hidden="true"></i><%= courses[i].user.name %>
+                    <i class="fa fa-user" aria-hidden="true"></i><%=
+                    courses[i].user.name %>
                   </li>
                 </ul>
               </div>
@@ -55,11 +67,10 @@
                 <input
                   class="input-text form-control"
                   name="search"
-              
                   placeholder="Search..."
                   type="text"
                 />
-                <button id="searchsubmit" value="Search" type="submit" ></button>
+                <button id="searchsubmit" value="Search" type="submit"></button>
               </div>
             </form>
           </div>
@@ -68,9 +79,12 @@
           <h3 class="widget-title">Categories</h3>
           <ul>
             <% for (let i=0; i < categories.length; i++) { %>
-            <li><a href="/courses/?categories=<%=categories[i].slug %>"><%= categories[i].name %></a></li>
+            <li>
+              <a href="/courses/?categories=<%=categories[i].slug %>"
+                ><%= categories[i].name %></a
+              >
+            </li>
             <% } %>
-            
           </ul>
         </div>
       </div>
