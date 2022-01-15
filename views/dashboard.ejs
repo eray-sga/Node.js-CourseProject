@@ -110,13 +110,56 @@
 								</div>
 								<div class="clearfix">
 									<ul style="list-style-type: none;">
-										<li style="float:left"><button class="btn btn-primary rounded-0 text-white"><span>UPDATE</span></button></li>
+										<li style="float:left"><button class="btn btn-primary rounded-0 text-white" data-toggle="modal" data-target="#updateCourse<%= courses[i]._id %>"><span>UPDATE</span></button></li>
 										<li style="float:right"><a href="/courses/<%= courses[i].slug %>?_method=DELETE" onclick="return confirm('ARE YOU SURE')" class="btn btn-danger rounded-0 text-white"><span>DELETE</span></a></li>
 									</ul>
 								</div>
 							</div>
 						</div>
 					</div><!-- end col -->
+
+					<!--UPDATE MODAL-->
+					<div class="modal fade" id="updateCourse<%= courses[i]._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+							  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							  </button>
+							</div>
+							<div class="modal-body">
+							  <form method="POST" action="/courses/<%= courses[i].slug %>?_method=PUT">
+								<div class="form-group">
+								  <input type="text" name="name" value="<%= courses[i].name %>" class="form-control" placeholder="Course Description">
+								</div>
+			
+								<div class="form-group">
+									<input type="hidden" name="role" class="form-control" value="<%= user.role %>">
+								  </div>
+								
+								<div class="form-group">
+								  <textarea rows="8" class="form-control" name="description" placeholder="Course Description"><%= courses[i].description %></textarea>
+								</div>
+			
+								<div class="form-group">
+									<select name="category" class="form-control">
+										<% for (let i=0; i < categories.length; i++) { %>
+										<option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
+										<% } %>
+									</select>
+								  </div>
+			
+								  <div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+									<input type="submit" value="SUBMIT" class="btn btn-primary"></input>
+								  </div>
+							  </form>
+							</div>
+							
+						  </div>
+						</div>
+					  </div>
 					<% } %>
 	
 				</div><!-- end row -->

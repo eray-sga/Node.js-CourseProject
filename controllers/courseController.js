@@ -1,6 +1,7 @@
 const Course = require("../models/Course");
 const Category = require("../models/Category");
 const User = require("../models/User");
+const { findOne } = require("../models/Course");
 
 exports.createCourse = async (req, res) => {
   try {
@@ -119,6 +120,23 @@ exports.deleteCourse = async (req, res) => {
   try {
     const course = await Course.findOneAndRemove({ slug: req.params.slug });
     req.flash("error", `${course.name} has been removed successfully`);
+    res.status(200).redirect("/users/dashboard");
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      error,
+    });
+  }
+};
+
+exports.updateCourse = async (req, res) => {
+  try {
+    const course = await Course.findOne({ slug: req.params.slug });
+    course.name = req.body.name;
+    course.description = req.body.description;
+    course.description = req.body.description;
+    course.save();
+
     res.status(200).redirect("/users/dashboard");
   } catch (error) {
     res.status(400).json({
