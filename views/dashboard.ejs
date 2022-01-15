@@ -233,6 +233,7 @@
 					</div><!-- end col -->
 				</div><!-- end row -->
 				<div class="row mt-5"> 
+					<h2>Users</h2>
 					<table class="table">
 						<thead>
 						  <tr>
@@ -254,8 +255,64 @@
 						</tbody>
 					  </table>
 				</div><!-- end row -->
+
+				<div class="row mt-5"> 
+					<h2>Categories</h2>
+					<table class="table">
+						<thead>
+						  <tr>
+							<th scope="col">ID</th>
+							<th scope="col">Name</th>
+							<th scope="col">Add</th>
+							<th scope="col">Delete</th>
+						  </tr>
+						</thead>
+						<tbody>
+							<% for (let i=0; i < categories.length; i++) { %>
+						  <tr>
+							<th scope="row"><%=categories[i]._id %></th>
+							<td><%= categories[i].name %></td>
+							<td>
+								<button href="#" class="btn btn-lg btn-warning rounded-0 text-white" data-toggle="modal" data-target="#addCategory">
+									ADD
+								  </button>
+							</td>
+							<td><a href="/categories/<%= categories[i]._id %>?_method=DELETE" onclick="return confirm('ARE YOU SURE')" class="btn btn-danger rounded-0 text-white"><span>DELETE</span></a></td>
+						  </tr>
+						<% } %>
+						</tbody>
+					  </table>
+				</div><!-- end row -->
+
 			</div><!-- end container -->
 		</div><!-- end section -->
+
+		<div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+				  <form method="POST" action="/categories">
+					<div class="form-group">
+					  <input type="text" name="name" class="form-control" placeholder="Category Name">
+					</div>
+					
+
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<input type="submit" value="SUBMIT" class="btn btn-primary"></input>
+					  </div>
+				  </form>
+				</div>
+				
+			  </div>
+			</div>
+		  </div>
 	
 		<% } %>
 
